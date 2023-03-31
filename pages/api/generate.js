@@ -9,19 +9,20 @@ export default async function (req, res) {
   if (!configuration.apiKey) {
     res.status(500).json({
       error: {
-        message: "OpenAI API key not configured, please follow instructions in README.md",
-      }
+        message:
+          "OpenAI API key not configured, please follow instructions in README.md",
+      },
     });
     return;
   }
 
-	console.log('req.body.script', req.body.script);
-  const script = req.body.script || '';
+  console.log("req.body.script", req.body.script);
+  const script = req.body.script || "";
   if (script.trim().length === 0) {
     res.status(400).json({
       error: {
         message: "Please enter a valid script",
-      }
+      },
     });
     return;
   }
@@ -31,11 +32,11 @@ export default async function (req, res) {
       model: "text-davinci-003",
       prompt: generatePrompt(script),
       temperature: 0.6,
-			max_tokens: 2000,
+      max_tokens: 2000,
     });
-		console.log('completion===>', completion.data);
+    console.log("completion===>", completion.data);
     res.status(200).json({ result: completion.data.choices[0].text });
-  } catch(error) {
+  } catch (error) {
     // Consider adjusting the error handling logic for your use case
     if (error.response) {
       console.error(error.response.status, error.response.data);
@@ -44,8 +45,8 @@ export default async function (req, res) {
       console.error(`Error with OpenAI API request: ${error.message}`);
       res.status(500).json({
         error: {
-          message: 'An error occurred during your request.',
-        }
+          message: "An error occurred during your request.",
+        },
       });
     }
   }
@@ -56,23 +57,28 @@ function generatePrompt(script) {
   return `
   Create clickup one or more stories with optional tasks from this script based on a js based react website built with next.js. Both stories and tasks should have acceptances criteria.
   ‘${script}’
-  Generate your Answer with JSON format like this:
+  Generate your Answer with JSON format like this with priority high, medium or low:
   {
     "stories": [
       {
         "name": string,
         "description": string,
         "time_estimate": integer,
+        "isFeature": boolean,
+        "isBug": boolean,
         "tasks": [
           {
             "name": string,
             "description": string,
-            "time_estimate": integer
+            "time_estimate": integer,
+            "isFeature": boolean,
+            "isBug": boolean,
+            "priority": string
           }
         ]
       }
     ]
   }
   please just reply JSON string formatted answer
-  `
-  }
+  `;
+}
