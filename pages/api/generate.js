@@ -54,22 +54,24 @@ export default async function (req, res) {
 function generatePrompt(script) {
   console.log(script);
   return `
-  Create clickup one or more tasks from this script with acceptance criteria
+  Create clickup one or more stories and tasks from this script with acceptance criteria
   ‘${script}’
   Generate your Answer with JSON format like this:
   {
-    story: {
-      "name": string,
-      "description": string,
-      "time_estimate": integer,
-    },
-    tasks: [
+    "stories": [
       {
         "name": string,
         "description": string,
         "time_estimate": integer,
-      },
-    ],
+        "tasks": [
+          {
+            "name": string,
+            "description": string,
+            "time_estimate": integer
+          }
+        ]
+      }
+    ]
   }
   please just reply JSON string formatted answer
   `

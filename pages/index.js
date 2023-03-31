@@ -55,20 +55,18 @@ export default function Home() {
           <input type="submit" value="ChatGPT Generate Tickets" />
         </form>
         <div className={styles.result}>
-          {result &&
-            <>
-              <h2>Name: { result?.story?.name }</h2>
-              <p>Description: { result?.story?.description }</p>
-            </>
-          }
-          {
-            result?.tasks?.map((task, index) => (
-              <div key={index}>
-                <h3>Name: { task.name }</h3>
-                <p>Description: { task.description }</p>
-              </div>
-            ))
-          }
+          {result?.stories?.map((story, index) => (
+            <div className={styles.story}>
+              <h2>Story Name: { story?.name }</h2>
+              <p>Description: { story?.description }</p>
+              { story?.tasks?.map((task, index) => (
+                <div className={styles.tasks} key={index}>
+                  <h3>Subtask Name: { task.name }</h3>
+                  <p>Description: { task.description }</p>
+                </div>
+              ))}
+            </div>
+          ))}
         </div>
       </main>
     </div>
