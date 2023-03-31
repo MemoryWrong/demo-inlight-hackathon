@@ -3,6 +3,7 @@ const LIST_ID = '900301426121';
 
 const generateTask = async (req, res) => {
   console.log('req.body: ', JSON.stringify(req.body, null, 2));
+  
   try {
     const resp = await fetch(
       `https://api.clickup.com/api/v2/list/${LIST_ID}/task?team_id=69&custom_task_ids=true`,
@@ -12,7 +13,8 @@ const generateTask = async (req, res) => {
           'Content-Type': 'application/json',
           Authorization: process.env.CLICKUP_API_KEY
         },
-        body: JSON.stringify(req.body)
+        // @NOTE: Just hard-coding it here because the IDs in context are not legit.
+        body: JSON.stringify({...req.body, assignees: ['48635257']} )
       }
     );
 
