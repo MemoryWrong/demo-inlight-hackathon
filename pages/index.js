@@ -50,6 +50,8 @@ export default function Home() {
 				<Dictaphone handleScript={handleScript} />
 
         <form onSubmit={onSubmit}>
+          <label htmlFor='input'>Describe your task: </label>
+          <textarea name='input' rows={10} value={script} onChange={(e) => setScript(e.target.value)} />
           <input type="submit" value="ChatGPT Generate Tickets" />
         </form>
         <div className={styles.result}>
