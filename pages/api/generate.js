@@ -64,8 +64,7 @@ function generatePrompt(script) {
   ‘${script}’
   
   Use the following context for the answer:
-  
-  The client is ${context.client.name}. 
+   
   The app platforms the product is available on are ${context.platforms.join(', ')}.
   The tech stack for the project includes ${context.techStack.join(', ')}.
   
