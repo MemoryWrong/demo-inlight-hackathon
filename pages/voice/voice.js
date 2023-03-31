@@ -11,12 +11,12 @@ const Dictaphone = ({handleScript}) => {
     browserSupportsSpeechRecognition
   } = useSpeechRecognition();
 
-	const startListening = () => SpeechRecognition.startListening({ continuous: true });
-	const stopListening = () => SpeechRecognition.stopListening();
+  const startListening = () => SpeechRecognition.startListening({ continuous: true });
+  const stopListening = () => SpeechRecognition.stopListening();
 
-	useEffect(() => {
-		handleScript(transcript)
-	}, [transcript])
+  useEffect(() => {
+    handleScript(transcript)
+  }, [transcript])
 
   // if (!browserSupportsSpeechRecognition) {
   //   return <span>Browser doesn't support speech recognition.</span>;
@@ -24,13 +24,12 @@ const Dictaphone = ({handleScript}) => {
 
   return (
     <div className={styles.voiceContainer}>
-			<p>Microphone: {listening ? 'on' : 'off'}</p>
-			<div>
-				<button onClick={startListening}>Start</button>
-				<button onClick={stopListening}>Stop</button>
-				<button onClick={resetTranscript}>Reset</button>
-			</div>
-			<p>{transcript}</p>
+      <p>Microphone: {listening ? 'on' : 'off'}</p>
+      <div className={styles.buttonContainer}>
+        <button onClick={startListening}>Start</button>
+        <button onClick={stopListening}>Stop</button>
+        <button onClick={resetTranscript}>Reset</button>
+      </div>
     </div>
   );
 };
