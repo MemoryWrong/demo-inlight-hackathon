@@ -67,7 +67,7 @@ function generatePrompt(script) {
   The app platforms the product is available on are ${context.platforms.join(', ')}.
   The tech stack for the project includes ${context.techStack.join(', ')}.
   
-  Include in the response which ${context.currentProjects.map(({name})=> name).join(', ')} the task or story is a part of.
+  ${context.team} is the team structure. Based on this structure, choose an assignee for this task.
   
   Generate your Answer with JSON format like this with priority high, medium or low:
   {
@@ -81,8 +81,12 @@ function generatePrompt(script) {
         "tasks": [
           {
             "name": string,
-            "description": string,
+            "description": string (> 200 words),
             "time_estimate": integer,
+            "isFeature": boolean,
+            "isBug": boolean,
+            "priority": string
+            "assignee": string,
           }
         ]
       }

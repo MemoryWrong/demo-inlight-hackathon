@@ -1,21 +1,33 @@
 export const context = {
-  client: {
-    name: "nandos",
-    clickUpSpaceId: "dsahiubc" // @TODO: Create the task in the correct client space in ClickUp 
-  },
-  techStack: ["AWS", "React", "CraftCMS"], // Not influencing the output very well at the moment.
+  techStack: ["AWS", "React", "CraftCMS"],
   platforms: ["iOS", "Android", "web"],
-  currentProjects: [
-    {
-      clickUpId: "abcdefg", // @TODO: Create the task in the correct project in ClickUp 
-      name: "Spin To Win AU"
-    }
-  ],
   team: {
     name: "The Thompsons",
-    developers: ["Diego", "Jet", "David"],
-    producers: ["Sarah", "Emily"], 
-    designers: ["Dylan"]
+    developers: [
+      {
+        name: "Carl",
+        id: '48635257'
+      },
+      {
+        name: "Milo",
+        id: '2137983'
+      },
+    ],
+    producers: [
+      {
+        name: "Sarah",
+        id: '48635257'
+      },
+      {
+        name: "Emily",
+        id: "3217084"
+      }
+    ],
+    designers: [
+      {
+        name: "Dylan",
+        id: "234223"
+      }
+    ]
   }
 }
-// Can I teach ChatGPT what "producers" mean for it to automatically infer an "Assignee" based on the prompt
