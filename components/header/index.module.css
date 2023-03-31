@@ -1,0 +1,11 @@
+.header{
+    width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2rem;
+}
+.action{
+    color: white;
+    border-bottom: solid 3px #fc553f;
+}
