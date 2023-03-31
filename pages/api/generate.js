@@ -55,7 +55,7 @@ export default async function (req, res) {
 function generatePrompt(script) {
   console.log(script);
   return `
-  Create clickup one or more stories with optional tasks from this script based on a js based react website built with next.js. Both stories and tasks should have acceptances criteria.
+  Create at least 2 stories with optional tasks from this script based on a js based react website built with next.js. Both stories and tasks should have acceptances criteria.
   ‘${script}’
   Generate your Answer with JSON format like this with priority high, medium or low:
   {
@@ -64,16 +64,13 @@ function generatePrompt(script) {
         "name": string,
         "description": string,
         "time_estimate": integer,
-        "isFeature": boolean,
-        "isBug": boolean,
+        "tag": "bug" | "feature",
+        "priority": string,
         "tasks": [
           {
             "name": string,
             "description": string,
             "time_estimate": integer,
-            "isFeature": boolean,
-            "isBug": boolean,
-            "priority": string
           }
         ]
       }
