@@ -3,8 +3,9 @@ import { useState } from "react";
 import styles from "./index.module.css";
 import Dictaphone from './voice/voice';
 
+import  { mapToClickup } from '../utils/clickup';
+
 export default function Home() {
-  const [animalInput, setAnimalInput] = useState("");
   const [result, setResult] = useState();
   const [script, setScript] = useState('');
 
@@ -28,7 +29,8 @@ export default function Home() {
       }
 
       setResult(data.result);
-      setAnimalInput("");
+      await mapToClickup(data.result.stories);
+
     } catch(error) {
       console.error(error);
       alert(error.message);
