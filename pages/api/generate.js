@@ -52,29 +52,27 @@ export default async function (req, res) {
 }
 
 function generatePrompt(script) {
-	console.log(script);
-	return `
-	Create JIRA at least 3 Stories and related (at least 3) tasks based on quoted text and specific tech
-	acceptance criteria in a bit detail
-	‘${script}’
-	Generate your Answer with JSON format like this:
-	{
-		"story": {
-			"title": string
-			"desc": string
-		}
-		"tasks": [
-			{
-				"title": string
-				"desc": string
-				"acs": [
-					string,
-					string,
-					string.
-				]
-			}
-		]
-	}
-	please just reply JSON string formated answer
-	`
-}
+  console.log(script);
+  return `
+  Create clickup one or more stories and tasks from this script with acceptance criteria
+  ‘${script}’
+  Generate your Answer with JSON format like this:
+  {
+    "stories": [
+      {
+        "name": string,
+        "description": string,
+        "time_estimate": integer,
+        "tasks": [
+          {
+            "name": string,
+            "description": string,
+            "time_estimate": integer
+          }
+        ]
+      }
+    ]
+  }
+  please just reply JSON string formatted answer
+  `
+  }

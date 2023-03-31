@@ -30,16 +30,17 @@
   width: 34px;
 }
 .main h3 {
-  font-size: 32px;
+  /* font-size: 32px; */
   line-height: 40px;
   font-weight: bold;
   color: #202123;
-  margin: 16px 0 40px;
+  margin: 2rem 0 1rem 0;
 }
 .main form {
+  margin-top: 3rem;
   display: flex;
   flex-direction: column;
-  width: 320px;
+  width: 900px;
 }
 .main input[type="text"] {
   padding: 12px 16px;
@@ -66,12 +67,20 @@
   margin-top: 40px;
 }
 
+.main .tasks {
+  margin-left: 2rem;
+}
+
 .main .voiceContainer {
   display: flex;
   flex-direction: column;
   width: 900px;
+}
 
-
+.main .voiceContainer .buttonContainer {
+  display: flex;
+  flex-direction: row;
+  width: 900px;
 }
 
 .main .voiceContainer button {
@@ -84,5 +93,9 @@
 	cursor: pointer;
 	width: 200px;
 	display: block;
-	margin-bottom: 1rem;
+	margin: 1rem;
+}
+
+.main textarea {
+  margin-bottom: 3rem;
 }
