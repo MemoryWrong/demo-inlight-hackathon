@@ -1,14 +1,15 @@
-import Head from "next/head";
-import { useState } from "react";
-import styles from "./index.module.css";
-import Dictaphone from "./voice/voice";
+import Head from 'next/head';
+import { useState } from 'react';
+import styles from './index.module.css';
+import Dictaphone from './voice/voice';
 
-import { mapToClickup } from "../utils/map-to-clickup";
+import { mapToClickup } from '../utils/map-to-clickup';
+import { Header } from '../components/header';
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
-  const [script, setScript] = useState("");
+  const [script, setScript] = useState('');
 
   async function onSubmit(event) {
     console.log('=========>', script);
@@ -16,10 +17,10 @@ export default function Home() {
     event.preventDefault();
 
     try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
+      const response = await fetch('/api/generate', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ script }),
       });
@@ -37,7 +38,7 @@ export default function Home() {
       setResult(data.result);
       await mapToClickup(data.result.stories);
 
-      alert("Success! Check your ClickUp account.");
+      alert('Success! Check your ClickUp account.');
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -53,41 +54,43 @@ export default function Home() {
   return (
     <div>
       <Head>
-        <title>OpenAI Quickstart</title>
-        <link rel="icon" href="/dog.png" />
+        <title>Hack to the future</title>
+        <link rel='icon' href='/dog.png' />
       </Head>
 
       <main className={styles.main}>
-        <Dictaphone handleScript={handleScript} />
-
+        <Header />
+        <h1 className={styles.storyh1}>Welcome</h1>
         <form onSubmit={onSubmit}>
-          <label htmlFor="input">Describe your task: </label>
+          <label htmlFor='input'>Describe your task: </label>
           <textarea
-            name="input"
+            name='input'
             rows={10}
             value={script}
             onChange={(e) => setScript(e.target.value)}
-          />
-          <input
-            type="submit"
-            value={loading ? "Generating..." : "ChatGPT Generate Tickets"}
             disabled={loading}
           />
+          <div className={styles.buttonContainer}>
+            <input
+              type='submit'
+              value={loading ? 'Generating...' : 'ChatGPT Generate Tickets'}
+              disabled={loading}
+            />
+          </div>
         </form>
         <div className={styles.result}>
           {result?.stories?.map((story, index) => (
             <div key={index} className={styles.story}>
-              <h2>Story Name: {story?.name}</h2>
+              <h2>
+                {index + 1}. Story Name: {story?.name}
+              </h2>
               <p>
-                Priority:{" "}
+                Priority:{' '}
                 <span className={`${styles.tag}`}>{story?.priority}</span>
               </p>
               <p>Description: {story?.description}</p>
               <p>
-                Type:{" "}
-                <span className={styles.tag}>
-                  {story?.tag}
-                </span>
+                Type: <span className={styles.tag}>{story?.tag}</span>
               </p>
               {story?.tasks?.map((task, index) => (
                 <div className={styles.tasks} key={index}>
