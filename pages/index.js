@@ -6,14 +6,15 @@ import Dictaphone from "./voice/voice";
 import { mapToClickup } from "../utils/map-to-clickup";
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
   const [script, setScript] = useState("");
-  const [loading, setLoading] = useState(false);
 
   async function onSubmit(event) {
-    console.log("=========>", script);
-    event.preventDefault();
+    console.log('=========>', script);
     setLoading(true);
+    event.preventDefault();
+
     try {
       const response = await fetch("/api/generate", {
         method: "POST",
@@ -24,7 +25,6 @@ export default function Home() {
       });
 
       const data = await response.json();
-      setLoading(false);
       data.result = JSON.parse(data.result);
 
       if (response.status !== 200) {
@@ -42,6 +42,8 @@ export default function Home() {
       console.error(error);
       alert(error.message);
     }
+
+    setLoading(false);
   }
 
   const handleScript = (st) => {
@@ -76,31 +78,21 @@ export default function Home() {
           {result?.stories?.map((story, index) => (
             <div key={index} className={styles.story}>
               <h2>Story Name: {story?.name}</h2>
+              <p>
+                Priority:{" "}
+                <span className={`${styles.tag}`}>{story?.priority}</span>
+              </p>
               <p>Description: {story?.description}</p>
               <p>
                 Type:{" "}
                 <span className={styles.tag}>
-                  {(story?.isBug && "Bug") ||
-                    (story?.isFeature && "Feature") ||
-                    "None"}
+                  {story?.tag}
                 </span>
               </p>
               {story?.tasks?.map((task, index) => (
                 <div className={styles.tasks} key={index}>
                   <h3>Subtask Name: {task.name}</h3>
                   <p>Description: {task.description}</p>
-                  <p>
-                    Type:{" "}
-                    <span className={styles.tag}>
-                      {(task?.isBug && "Bug") ||
-                        (task?.isFeature && "Feature") ||
-                        "None"}
-                    </span>
-                  </p>
-                  <p>
-                    Priority:{" "}
-                    <span className={`${styles.tag}`}>{task?.priority}</span>
-                  </p>
                 </div>
               ))}
             </div>
