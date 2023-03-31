@@ -1,4 +1,7 @@
 import { Configuration, OpenAIApi } from "openai";
+import {context} from './context';
+
+console.log(`context: `,context)
 
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
@@ -56,6 +59,13 @@ function generatePrompt(script) {
   return `
   Create clickup one or more stories and tasks from this script with acceptance criteria
   ‘${script}’
+  
+  Use the following context for the answer:
+  
+  The client is ${context.client.name}. 
+  The app platforms the product is available on are ${context.platforms.join(', ')}.
+  The tech stack for the project includes ${context.techStack.join(', ')}.
+  
   Generate your Answer with JSON format like this:
   {
     "stories": [
