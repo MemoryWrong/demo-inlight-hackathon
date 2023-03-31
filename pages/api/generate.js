@@ -58,7 +58,9 @@ export default async function (req, res) {
 function generatePrompt(script) {
   console.log(script);
   return `
-  Create at least 2 stories with optional tasks from this script based on a js based react website built with next.js. Both stories and tasks should have acceptances criteria.
+  Create at least 2 stories with optional tasks from this script based on a js based react website built with next.js. Both stories and tasks should have acceptances criteria. Add a code solutions for each task in the code field.
+
+  The stories should be created based on the following script:
   ‘${script}’
   
   Use the following context for the answer:
@@ -69,6 +71,7 @@ function generatePrompt(script) {
   
   ${context.team} is the team structure. Based on this structure, choose an assignee for this task.
   
+
   Generate your Answer with JSON format like this with priority high, medium or low:
   {
     "stories": [
@@ -82,6 +85,7 @@ function generatePrompt(script) {
           {
             "name": string,
             "description": string (> 200 words),
+            "code": string,
             "time_estimate": integer,
             "isFeature": boolean,
             "isBug": boolean,
