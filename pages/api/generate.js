@@ -54,7 +54,7 @@ export default async function (req, res) {
 function generatePrompt(script) {
   console.log(script);
   return `
-  Create clickup one or more stories and tasks from this script with acceptance criteria
+  Create clickup one or more stories with optional tasks from this script based on a js based react website built with next.js. Both stories and tasks should have acceptances criteria.
   ‘${script}’
   Generate your Answer with JSON format like this:
   {

@@ -6,11 +6,13 @@ import Dictaphone from './voice/voice';
 import  { mapToClickup } from '../utils/map-to-clickup';
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState();
   const [script, setScript] = useState('');
 
   async function onSubmit(event) {
     console.log('=========>', script);
+    setLoading(true);
     event.preventDefault();
     try {
       const response = await fetch("/api/generate", {
@@ -37,6 +39,8 @@ export default function Home() {
       console.error(error);
       alert(error.message);
     }
+
+    setLoading(false);
   }
 
   const handleScript = (st) => {
@@ -56,7 +60,7 @@ export default function Home() {
         <form onSubmit={onSubmit}>
           <label htmlFor='input'>Describe your task: </label>
           <textarea name='input' rows={10} value={script} onChange={(e) => setScript(e.target.value)} />
-          <input type="submit" value="ChatGPT Generate Tickets" />
+            <input type="submit" value={ loading ? "Loading..." : "ChatGPT Generate Tickets" } disabled={loading} />
         </form>
         <div className={styles.result}>
           {result?.stories?.map((story, index) => (
