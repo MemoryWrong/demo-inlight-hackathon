@@ -79,27 +79,34 @@ export default function Home() {
           </div>
         </form>
         <div className={styles.result}>
-          {result?.stories?.map((story, index) => (
-            <div key={index} className={styles.story}>
-              <h2>
-                {index + 1}. Story Name: {story?.name}
-              </h2>
-              <p>
-                Priority:{' '}
-                <span className={`${styles.tag}`}>{story?.priority}</span>
-              </p>
-              <p>Description: {story?.description}</p>
-              <p>
-                Type: <span className={styles.tag}>{story?.tag}</span>
-              </p>
-              {story?.tasks?.map((task, index) => (
-                <div className={styles.tasks} key={index}>
-                  <h3>Subtask Name: {task.name}</h3>
-                  <p>Description: {task.description}</p>
-                </div>
-              ))}
-            </div>
-          ))}
+          {result?.stories?.map((story, index) => {
+            return (
+              <div key={index} className={styles.story}>
+                <h2>
+                  {index + 1}. Story Name: {story?.name}
+                </h2>
+                <p>
+                  Priority:{' '}
+                  <span className={`${styles.tag} ${styles[story?.priority]}`}>
+                    {story?.priority}
+                  </span>
+                </p>
+                <p>Description: {story?.description}</p>
+                <p>
+                  Type:{' '}
+                  <span className={`${styles.tag} ${styles[story?.tag]}`}>
+                    {story?.tag}
+                  </span>
+                </p>
+                {story?.tasks?.map((task, index) => (
+                  <div className={styles.tasks} key={index}>
+                    <h3>Subtask Name: {task.name}</h3>
+                    <p>Description: {task.description}</p>
+                  </div>
+                ))}
+              </div>
+            );
+          })}
         </div>
       </main>
     </div>
