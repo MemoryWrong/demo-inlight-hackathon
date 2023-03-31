@@ -58,9 +58,18 @@ function generatePrompt(script) {
   ‘${script}’
   Generate your Answer with JSON format like this:
   {
-    "name": string,
-    "description": string,
-    "time_estimate": integer,
+    story: {
+      "name": string,
+      "description": string,
+      "time_estimate": integer,
+    },
+    tasks: [
+      {
+        "name": string,
+        "description": string,
+        "time_estimate": integer,
+      },
+    ],
   }
   please just reply JSON string formatted answer
   `
