@@ -3,8 +3,9 @@ import { useState } from "react";
 import styles from "./index.module.css";
 import Dictaphone from "./voice/voice";
 
+import { mapToClickup } from "../utils/map-to-clickup";
+
 export default function Home() {
-  const [animalInput, setAnimalInput] = useState("");
   const [result, setResult] = useState();
   const [script, setScript] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,8 +35,9 @@ export default function Home() {
       }
 
       setResult(data.result);
-      setAnimalInput("");
-      console.log("😆", result);
+      await mapToClickup(data.result.stories);
+
+      alert("Success! Check your ClickUp account.");
     } catch (error) {
       console.error(error);
       alert(error.message);
@@ -72,7 +74,7 @@ export default function Home() {
         </form>
         <div className={styles.result}>
           {result?.stories?.map((story, index) => (
-            <div className={styles.story}>
+            <div key={index} className={styles.story}>
               <h2>Story Name: {story?.name}</h2>
               <p>Description: {story?.description}</p>
               <p>
@@ -83,7 +85,6 @@ export default function Home() {
                     "None"}
                 </span>
               </p>
-
               {story?.tasks?.map((task, index) => (
                 <div className={styles.tasks} key={index}>
                   <h3>Subtask Name: {task.name}</h3>
